@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block body_block %}
+<style>
+  body{
+    margin:0;
+    padding:0;
+    background-image:url("/static/image/contactus.jpeg");
+    -webkit-background-size:cover;
+    background-size:cover;
+  }
+  .contact-area{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:800px;
+    height:470px;
+    box-sizing:border-box;
+    background:rgba(0,0,0,0.6);
+    padding:24px;
+    color:white;
+    font-size:30px;
+
+  }
+  .fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+.fa-mobile-phone {
+  background: #3B5998;
+  color: white;
+}
+.fa-whatsapp {
+  background: green;
+  color: white;
+}
+.fa-google {
+  background: #dd4b39;
+  color: white;
+}
+.sub_div {
+    position: absolute;
+    bottom: 5px;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="contact-area">
+<h1 style="text-align:center;color:white;background-color:green;"><b><u>Contact Us</u></b></h1>
+
+<h2 class="fa fa-mobile-phone" style="float:left;font-size:80px;color:red"></h2><h2 style="font-size:40px;color:white">&nbsp&nbsp9453546395,9451728256,7080210283</h2><br>
+<h2 class="fa fa-whatsapp" style="float:left;font-size:80px;"></h2><h2 style="font-size:40px;color:white">&nbsp&nbsp9415127399</h2><br>
+<h2 class="fa fa-facebook" style="float:left;font-size:80px;"></h2><h2 style="font-size:40px;color:white">&nbsp&nbspRam Rahim Vidyalaya</h2><br>
+<h2 class="fa fa-google" style="float:left;font-size:80px;"></h2><h2 style="font-size:40px;color:white">&nbsp&nbspramrahimschool@gmail.com</h2>
+</div>
+
+<div class="sub_div">
+<marquee Scrollamount=2  direction=up><h2 style="font-size:45px;color:white;background-color:green">For any Technical support or complaint contact Ashvin on 6394953347 (whatsapp available)</h2></marquee>
+</div>
+{% endblock %}

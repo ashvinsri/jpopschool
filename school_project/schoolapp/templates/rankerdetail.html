@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+   {% block body_block %}
+   <style>
+     #subjects{
+       font-family: "Trebuchet MS", Arial,Helvetica, sans-serif;
+       border-collapse:collapse;
+       width:100%;
+     }
+     #subjects td, #subjects th{
+       border 1px solid #ddd;
+       padding:8px;
+     }
+     #subjects tr{
+       background-color:#f2f2f2;
+     }
+       #subjects tr:hover
+       {
+         background-color:#ddd;
+       }
+       #subjects th{
+         padding-top:12px;
+         padding-bottom:12px;
+         text-align:left;
+         background-color: #4CAF50;
+         color:black;
+       }
+
+     .form-area{
+       position:absolute;
+       top:55%;
+       left:50%;
+       transform:translate(-50%,-50%);
+       width:60%;
+       height:70%;
+       box-sizing:border-box;
+       background:rgba(0,0,0,0.5);
+       padding:24px;
+
+     }
+     </style>
+     <div class="form-area">
+    <h1 align=center style="color:pink;"><u>Ranker's Detail</u></h1>
+    <h2 style="color:white;float:left;">Name:&nbsp{{u.uname}}</h2> <h2 style="color:white;" align=right>Class-&nbsp{{u.clas}}</h2>
+    <h2 style="color:white;">Email ID:&nbsp{{u.emailid}}</h2>
+    <h2 align="center" style="color:yellow;"><u>Progress</u></h2>
+    <table id="subjects">
+      <tr>
+        <th>Subject</th><th>Attempts</th><th>Marks</th>
+      </tr>
+    {% for obj in s %}
+  <tr>
+    <td>{{obj.name}}</td><td>{{obj.attempts}}</td><td>{{obj.marks}}</td>
+  </tr>
+{% endfor %}
+</table>
+</div>
+   {% endblock %}

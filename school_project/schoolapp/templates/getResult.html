@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block body_block %}
+{% load static from staticfiles %}
+<style>
+  .content-table{
+    border-collapse: collapse;
+    font-size:0.9cm;
+    min-width:400px;
+  }
+  .content-table thead,tr{
+    background-color: "lightgreen";
+    color: #ffffff;
+    text-align:left;
+    font-weight:bold;
+  }
+  td,th{
+    padding: 0 40px;
+  }
+
+</style>
+<h3 style="margin-left:150px;margin-top:5px;font-family:TimesNewRoman;color:orange;">Affliated to U.P.Board English Medium</h3>
+<h1 style="margin-left:150px;margin-top:5px">Krishna Convent School </h1>
+<h3 style="margin-left:220px;margin-top:5px">Jarwal Road Bahraich </h3>
+<div style="margin-left:40px;margin-top:5px">
+<table class="content-table" style="font-size:0.7cm;"">
+  <tr>
+<td style="color:brown;">Reg No :{{data.rollno}}</td>
+<td style="color:brown">Name : {{data.name}}</td>
+</tr>
+<tr>
+  <td style="color:brown;">Class : {{data.std}}</td>
+  <td style="color:brown;">DOB : {{data.dob}}</td>
+</tr>
+</table>
+<table class="content-table">
+  <tr>
+    <th>Subject</th><th>Marks</th><th>Max Marks</th>
+  </tr>
+  <tr>
+{% for res in lst %}
+  <tr>
+<td style="color:rgba(224,41,92,1);">{{res.subject}}</td><td style="color:blue;text-align:center;">{{res.marks}}</td><td style="color:red;text-align:center;">{{res.max_mark}}</td>
+</tr>
+{% endfor %}
+<tr>
+  <td style="color:rgba(129,104,118,1);">Total</td><td style="color:rgba(93,93,154,1);text-align:center;">{{total}}</td><td style="color:rgba(211,94,94,1);text-align:center;">{{totalmax}}</td>
+  </tr>
+  <tr>
+    <td style="color:rgba(127,15,118,1);">Percentage</td><td style="color:rgba(12,12,39,1);text-align:center;">{{percent}}%</td><td style="color:rgba(12,12,39,1);text-align:center;">{{flag}}</td>
+  </tr>
+</table>
+<ul>
+  <li>
+<p style="font-size=25px;color:blue;">Marks below 40 percent in any individual subject will be considered as Fail</p>
+<img style="width:7%;height:7%;border-radius:30%;margin-right:900px;" src="{% static 'image/sign.jpg.jpg' %}" alt="" align='right'></img>
+</li>
+<li>
+  <p style="font-size=25px;color:blue;">This copy should not be considered as an original one</p>
+
+
+  </li>
+
+  <li>
+    <p style="font-size=25px;color:blue;">Students failed in one subject may fill scooteney form</p>
+    </li>
+    </ul>
+    </div>
+{% endblock %}

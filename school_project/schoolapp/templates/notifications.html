@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+   {% block body_block %}
+   <div class="jumbotron">
+     {% for obj in modal %}
+     <div class="notice">
+  <a href="{% url 'noticedetail' pk=obj.pk %}"><p style="font-size:250%;font-family:courier;"><strong>{{obj.title}}<Strong></p></a>
+    <p>{{obj.text}}</p>
+    <p>{{obj.author}}</p>
+    <p>{{obj.create_date}}</p>
+</div>
+     {% endfor %}
+
+   </div>
+
+   {% endblock %}

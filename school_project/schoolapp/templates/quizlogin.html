@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block body_block %}
+{% load static from staticfiles %}
+<style>
+body{
+  margin:0;
+  padding:0;
+  background-image:url("/static/image/registerfortest3.jpeg");
+  -webkit-background-size:cover;
+  background-size:cover;
+}
+.form-area{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:400px;
+  height:400px;
+  box-sizing:border-box;
+  background:rgba(0,0,0,0.2);
+  padding:40px;
+
+}
+h3{
+  margin:0;
+  padding 0 0 20px;
+  font-weight:bold;
+  color: #ffffff;
+}
+.form-area p{
+  margin:0 0 10px;
+  padding:0;
+  font-weight:bold;
+  color:#ffffff;
+}
+.form-area input{
+  margin-bottom:40px;
+  width:100%
+}
+.form-area input[type=text],
+.form-area input[type=password]
+{
+  border:none;
+  border-bottom:1px solid #ffffff;
+  border-color:transparent;
+  outline:none;
+}
+  </style>
+  {% if messages %}
+  <ul style="list-style-type:none;" class="messages">
+    {% for message in messages %}
+    <li>
+<div align="center" class="alert alert-danger">{{message}}</div>
+</li>
+</ul>
+{% endfor %}
+{% endif %}
+<div class="form-area">
+  <h3 style="text-align:center">Login for Test</h3>
+  <form method="post">
+    {% csrf_token %}
+    <p style="font-size:20px;"><b>UserId</b></p>
+    {{quizloginform.uid}}
+    <p style="font-size:20px;"><b>Password</b></p>
+    {{quizloginform.password}}
+     <input class="btn btn-success" type="submit" name="" value="Start Test">
+
+  </form>
+
+</div>
+{% endblock %}

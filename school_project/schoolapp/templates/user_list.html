@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
+
+     <!-- Optional theme -->
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  function preventBack()
+  {
+    window.history.forward();
+  }
+  setTimeout("preventBack()",0);
+  window.onload=function(){null};
+  var count = parseInt(document.getElementById("gettimer").value);
+  console.log(count);
+var interval = setInterval(function(){
+  document.getElementById('count').innerHTML=count;
+  document.getElementById("puttimer").value=count;
+  count--;
+  if (count === 0){
+    clearInterval(interval);
+    document.getElementById('count').innerHTML='Done';
+    // or...
+    alert("You're out of time!");
+  }
+}, 1000);
+
+</script>
+<style>
+  .nav-link {
+    padding-right: .5rem !important;
+    padding-left: .5rem !important;
+  }
+  body{
+    margin:0;
+    padding:0;
+    background-image:url("/static/image/quizlogo.jpeg");
+    -webkit-background-size:cover;
+    background-size:cover;
+  }
+  .form-area{
+    position:absolute;
+    top:40%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:800px;
+    height:450px;
+    box-sizing:border-box;
+    background:rgba(0,0,0,0.1);
+    padding:24px;
+    color:white;
+    font-size:30px;
+
+  }
+  .pagination {
+
+  clear:both;
+
+  position:relative;
+
+  font-size:20px;
+
+  }
+
+
+
+  .pagination span, .pagination a {
+
+  display:block;
+
+  float:left;
+
+  margin: 2px 2px 2px 0;
+
+  padding:6px 9px 5px 9px;
+
+  text-decoration:none;
+
+  color: #ddd;
+
+  background: #222;
+
+  }
+
+
+
+  .pagination .current{
+
+  padding:6px 9px 5px 9px;
+
+  font-weight: bold;
+
+  background: #0950E8;
+
+  }
+
+</style>
+</head>
+<body>
+
+    <form class="form-area" method="post">
+    {% csrf_token %}
+
+      {% for user in users %}
+        <table border="0px">
+          <tr>
+        <td>{{ forloop.counter}}-{{user.quename}}</td>
+        <td style="padding:0 30px;">{{user.marks}} points</td>
+</tr>
+</table>
+        {% for ans in ans_list %}
+        {% ifequal ans.question user%}
+        <table border="0px">
+          <tbody>
+        <tr>
+          <td  colspan=2  style="height:100px;width:400px;"><input type="radio" id="option1" name="answer" value="1">
+          <label for="option1">{{ans.option1}}</label></td>
+          <td colspan=2  style="padding:0;height:100px;width:400px;"><input type="radio" id="option2" name="answer" value="2">
+          <label for="option2">{{ans.option2}}</label></td>
+        </tr>
+        <tr>
+
+            <td colspan=2  style="height:100px;width:400px;"><input type="radio" id="option3" name="answer" value="3">
+            <label for="option3">{{ans.option3}}</label></td>
+
+              <td colspan=2 style="padding:0;height:100px;width:400px;"><input type="radio" id="option4" name="answer" value="4">
+              <label for="option4">{{ans.option4}}</label></td>
+              <td> <input type="hidden" name="correct" value={{ans.answer}}></td>
+              <td> <input type="hidden" name="queid" value={{user.queid}}></td>
+              <td></td>
+              <td style="text-align:right;"> <input type="hidden" name="score" value={{user.marks}} ></td>
+              <td> <input type="hidden" id="gettimer" value={{timer}} /></td>
+              <input type="hidden" name="puttimer" id="puttimer" value="" />
+
+        </tr>
+        <tr>
+        </table>
+        <table align="center" border=0px>
+          <tr>
+        <td><input type="submit" id="save" class="btn btn-success" name="save" value="Save"></input></td>
+        </tr>
+
+
+          {% endifequal %}
+        {% endfor %}
+
+      {% endfor %}
+    </tbody>
+      </table>
+    </form>
+
+
+
+    {% if users.has_other_pages %}
+      <ul class="pagination" style="vertical-align:bottom;align:right" >
+        {% if users.has_previous %}
+          <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in users.paginator.page_range %}
+          {% if users.number == i %}
+            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+          {% else %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if users.has_next %}
+          <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&raquo;</span></li>
+          <div align="right" ><a class="btn btn-success" href="{% url 'testdone' %}">>Submit</a></div>
+        {% endif %}
+      </ul>
+    {% endif %}
+    <div align="right" style="margin-right:10px;" ><a class="btn btn-danger" href="{% url 'testdone' %}">Exit</a></div>
+    </body>
+<html>

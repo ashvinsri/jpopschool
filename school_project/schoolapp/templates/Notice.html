@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+   {% block body_block %}
+   <div class="jumbotron">
+     <h1 style="font-family:sans-serif;">Publish the Notice</h1>
+
+
+     {% if flag %}
+     <h1>NOTICE PUBLISHED</h1>
+     <a href="{% url 'base' %}"><h2>Go to Home</h2></a>
+     {% else %}
+      <form method="post">
+        {% csrf_token %}
+        {{notice_form.as_p}}
+        <input type="submit" class="btn btn-primary" name="" value="Publish" >
+     </form>
+     {% endif %}
+
+   </div>
+
+   {% endblock %}

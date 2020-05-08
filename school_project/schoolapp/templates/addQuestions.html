@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+   {% block body_block %}
+   <style>
+     body{
+       margin:0;
+       padding:0;
+       background-image:url("/static/image/quizlogo.jfif");
+       -webkit-background-size:cover;
+       background-size:cover;
+     }
+     .form-area{
+       position:absolute;
+       top:55%;
+       left:50%;
+       transform:translate(-50%,-50%);
+       width:400px;
+       height:550px;
+       box-sizing:border-box;
+       background:rgba(0,0,0,0.5);
+       padding:40px;
+       color:white;
+
+     }
+     td{
+       padding:10px;
+     }
+   </style>
+
+     {% if messages %}
+       {% if messages.success %}
+     <ul style="list-style-type:none;" class="messages">
+       {% for message in messages %}
+       <li>
+ <div class="alert alert-success">{{message}}</div>
+ </li>
+ </ul>
+ {% endfor %}
+ {% else %}
+ <ul style="list-style-type:none;" class="messages">
+   {% for message in messages %}
+   <li>
+ <div class="alert alert-danger">{{message}}</div>
+ </li>
+ </ul>
+ {% endfor %}
+ {% endif %}
+     {% endif %}
+  
+   <form class="form-area" method="post">
+     {% csrf_token %}
+     <table>
+    <tr>
+      <td>Question Id: </td><td>{{qform.queid}}</td>
+    </tr>
+    <tr>
+      <td>Question Name: </td><td>{{qform.quename}}</td>
+    </tr>
+    <tr>
+      <td>Weightage : </td><td>{{qform.marks}}</td>
+    </tr>
+    <tr>
+      <td>Option 1: </td><td>{{aform.option1}}</td>
+    </tr>
+    <tr>
+      <td>Option 2: </td><td>{{aform.option2}}</td>
+    </tr>
+    <tr>
+      <td>Option 3: </td><td>{{aform.option3}}</td>
+    </tr>
+    <tr>
+      <td>Option 4: </td><td>{{aform.option4}}</td>
+    </tr>
+    <tr>
+      <td>Correct option: </td><td>{{aform.answer}}</td>
+    </tr>
+    <tr>
+     <td></td> <td><input type="submit" class="btn btn-success" name="" value="Upload"></td>
+     </tr>
+     </table>
+
+
+   </form>
+   {% endblock %}

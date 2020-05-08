@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+   {% block body_block %}
+   <style>
+   body{
+     margin:0;
+     padding:0;
+     background-image:url("/static/image/registerfortest.jpeg");
+     -webkit-background-size:cover;
+     background-size:cover;
+   }
+   .form-area{
+     position:absolute;
+     top:30%;
+     left:50%;
+     transform:translate(-50%,-50%);
+     width:400px;
+     height:200px;
+     box-sizing:border-box;
+     background:rgba(0,0,0,0.5);
+     padding:24px;
+     color:white;
+     font:20px;
+
+   }
+   .ins-area{
+     position:absolute;
+     top:75%;
+     left:20%;
+     transform:translate(-50%,-50%);
+     width:600px;
+     height:300px;
+     box-sizing:border-box;
+     background:rgba(0,0,0,0.3);
+     padding:24px;
+     color:white;
+     font:20px;
+
+   }
+   </style>
+   <form class="form-area" method="post">
+    <h1>Choose Subject</h1>
+      {% csrf_token %}
+      <label for="subject"></label>
+      <select style="width:300px;" id="subjects" name="subjects" align="center">
+        {% for sub in subjects %}
+         <option value={{sub.qname}}>{{sub.qname}}</option>
+        {% endfor %}
+        </select>
+        <br>
+        <input style="margin-top:20px;" class="btn btn-success" type="submit"  name="choose" value="Proceed>>">
+        </form>
+        <div class="ins-area">
+          <ul>
+<li style="font-size:25px;color:white;">Complete the test within 20 minutes &#128114</li>
+<li style="font-size:25px;color:white;">Back Copy Button is disabled so dont try it &#128170</li>
+<li style="font-size:25px;color:white;">Page will block if u will try to cheat &#128545</li>
+<li style="font-size:25px;color:white;">No Negative Marking&#9996</li>
+<li style="font-size:25px;color:white;">Click Save and next Press Submit at last.</li>
+<li style="font-size:25px;color:white;">All records will be saved in School Record.</li>
+<li style="font-size:25px;color:white;">Any query Whatsapp on 8299507456 &#129331</li>
+</ul>
+        </div>
+
+   {% endblock %}

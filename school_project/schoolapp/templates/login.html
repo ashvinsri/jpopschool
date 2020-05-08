@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block body_block %}
+<style>
+  body{
+    margin:0;
+    padding:0;
+    background-image:url("/static/image/teacherlogin.jpeg");
+    -webkit-background-size:cover;
+    background-size:cover;
+  }
+  .form-area{
+    position:absolute;
+    top:55%;
+    left:70%;
+    transform:translate(-50%,-50%);
+    width:300px;
+    height:400px;
+    box-sizing:border-box;
+    background:rgba(0,0,0,0.5);
+    padding:24px;
+    color:white;
+    font-size:20px;
+
+  }
+  </style>
+
+<form class="form-area" action="{% url 'login' %}" method="post">
+  <h1 align="center">Teacher's Login</h1>
+  {% csrf_token %}
+  <p style="font-size=20px; font-family:'Calibri';""><b>Username</b></p>
+  <input type="text" name="username" placeholder="Enter Username">
+
+  <p style="font-size=20px; font-family:'Calibri';"><b>Password</b></p><p></p>
+  <input type="password" name="password" placeholder="Enter Password">
+
+  <input type="submit" class="btn btn-primary" value="Login">
+</form>
+
+
+
+
+{% endblock %}

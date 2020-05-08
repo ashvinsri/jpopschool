@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+   {% block body_block %}
+   <!DOCTYPE html>
+   <html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+     <script type="text/javascript">
+       function preventBack()
+       {
+         window.history.forward();
+       }
+       setTimeout("preventBack()",0);
+       window.onload=function(){null};
+       </script>
+   <style>
+     body {
+       background-color: black;
+       font-family: cursive;
+     }
+     td{
+       padding:0 10px;
+     }
+     .glow {
+       font-size: 80px;
+       color: #fff;
+       text-align: center;
+       -webkit-animation: glow 1s ease-in-out infinite alternate;
+       -moz-animation: glow 1s ease-in-out infinite alternate;
+       animation: glow 1s ease-in-out infinite alternate;
+     }
+
+     @-webkit-keyframes glow {
+       from {
+         text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+       }
+
+       to {
+         text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+       }
+     }
+     </style>
+     </head>
+     <body>
+     <h1 class="glow">!!TEST COMPLETED SUCCESFULLY!!</h1><br>
+     <h2 align="center" style="color:black;"><b><u>ACKNOWLEDGEMENT</u></b></h2>
+     <table align="center">
+       <tr>
+         <td><h3>User Id</h3><td colspan=2><h3 style="color:brown;">{{user.uid}}</h3></td>
+       </tr>
+       <tr>
+         <td><h3>UserName</h3><td colspan=2><h3 style="color:brown;">{{user.uname}}</h3></td>
+      </tr>
+      <tr>
+     <td><h3>Subject</h3><td colspan=2><h3 style="color:brown;">{{sub}}</h3></td><td colspan=2><a href="{% url 'leaderboard' %}">Current LeaderBoard</a>
+     </td>
+   </tr>
+   <tr>
+     <td><h3>Attempted</h3><td colspan=2><h3 style="color:brown;">{{qcount}}</h3></td>
+   </tr>
+    <tr>
+   <td><h3>Correct</h3><td colspan=2><h3 style="color:brown;">{{corrque}}</h3></td>
+</tr>
+<tr>
+   <td><h3>Total</h3><td colspan=2><h3 style="color:brown;">20</h3></td>
+ </tr>
+   {% ifequal result "pass" %}
+   <tr>
+   <td><h3>Marks</h3><td colspan=2><h3>{{total}}</h3></td><td rowsapn=2 colspan=2><span style='font-size:100px;'>&#128512;</span></td>
+ </tr>
+ <tr>
+  <td><h3>Result</h3><td colspan=2><h3 style="color:green;">Passed</h3></td>
+</tr>
+     {% else %}
+     <tr>
+     <td><h3>Marks</h3><td colspan=2><h3>{{total}}</h3></td><td rowsapn=2 colspan=2><span style='font-size:100px;'>&#128542;</span></td>
+   </tr>
+   <tr>
+    <td><h3>Result</h3><td colspan=2><h3 style="color:red;">Failed</h3></td>
+</tr>
+   {% endifequal %}
+ </table>
+ <h1 align="center" style="color:red;">Ram Rahim Vidyalaya</h1>
+    </body>
+</html>
+
+   {% endblock %}

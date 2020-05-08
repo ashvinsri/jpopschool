@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+   {% block body_block %}
+<style>
+#subjects{
+  font-family: "Trebuchet MS", Arial,Helvetica, sans-serif;
+  border-collapse:collapse;
+  width:100%;
+}
+#subjects td, #subjects th{
+  border 1px solid #ddd;
+  padding:8px;
+}
+#subjects tr:nth-child(even){
+  background-color:#f2f2f2;
+}
+  #subjects tr:hover
+  {
+    background-color:#ddd;
+  }
+  #subjects th{
+    padding-top:12px;
+    padding-bottom:12px;
+    text-align:left;
+    background-color: #4CAF50;
+    color:white;
+  }
+
+
+</style>
+<form method="post">
+  {% csrf_token %}
+<table id="subjects">
+  <tr>
+    <th>Rank</th><th>User Id</th><th>Subject</th><th>Attempts</th><th>Marks</th>
+  </tr>
+    {% for obj in sub %}
+    <tr>
+    <td>{{forloop.counter}}</td><td><input type="submit" class="btn btn-success" name="uid" value="{{obj.uid}}"></td><td>{{obj.name}}</td><td>{{obj.attempts}}</td><td>{{obj.marks}}</td>
+    </tr>
+    {% endfor %}
+</table>
+  </form>
+   {% endblock %}

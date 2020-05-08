@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+   {% block body_block %}
+  <h2 style="margin-top:20px;text-align:center;font-family:'Georgia';color:blue;">Results</h2>
+  <style>
+    .content-table{
+      border-collapse: collapse;
+      font-size:0.9cm;
+      min-width:400px;
+    }
+    .content-table thead tr{
+      background-color: "lightgreen";
+      color: #ffffff;
+      text-align:left;
+      font-weight:bold;
+      min-width:400px;
+    }
+    td{
+      padding:2 50px;
+      text-align:left;
+    }
+    <script type="text/javascript">
+    var mydata="{{mydata|escapejs}}";
+    console.log(JSON.parse(mydata));
+
+
+    </script>
+  </style>
+  <div style="margin-left:10px;margin-top:20px;">
+  <table style="left-margin:20px;">
+  <tr>
+    <td>
+  <form method="post" align="left">
+    {% csrf_token %}
+    <label for="class" style="float:left;">Search by Class:</label>
+          {{searchformbyclass.Class}}
+          <input type="submit" name="sbc" class='btn btn-success' onclick="myFunction()" value="Search"></input>
+  </form>
+  </td>
+  <td>
+  <form method="post" align="right">
+    {% csrf_token %}
+    <label for="class" style="margin-right:0px;">Search by Name:</label>
+          {{searchformbyname.Name}}
+          <input type="submit" name="sbn" class='btn btn-success' onclick="myFunction()" value="Search"></input>
+  </form>
+  </td>
+  </tr>
+  </table>
+  <table class="content-table">
+    <tr style="padding:1px;">
+      <th style="padding:0 50px;text-align:left">Roll No.</th><th style="padding:0 50px;text-align:left">Name</th><th style="padding:0 50px;text-align:left">Class</th><th style="padding:0 50px;text-align:left">Result</th>
+    </tr>
+    {% for d in data %}
+    <tr>
+      <td style="padding:0 50px;text-align:center">{{d.rollno}}</td> <td style="padding:0 50px;text-align:left">{{d.name}}</td><td style="padding:0 50px;text-align:center">{{d.std}}</td>
+      {% ifequal d.pf "Passed" %}
+      <td id="res" style="padding:0 50px;text-align:left;color:green;">Passed</td>
+      <td id="a"></td>
+      {% else %}
+      <td id="res" style="padding:0 50px;text-align:left;color:red;">Failed</td>
+      {% endifequal %}
+    </tr>
+    {% endfor %}
+</table>
+</div>
+
+   {% endblock %}

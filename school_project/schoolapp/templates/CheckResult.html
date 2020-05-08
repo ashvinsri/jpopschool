@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block body_block %}
+{% load static from staticfiles %}
+<style>
+  body{
+    margin:0;
+    padding:0;
+    background-image:url("/static/image/pencilpic.jpeg");
+    -webkit-background-size:cover;
+    background-size:cover;
+  }
+  .form-area{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:500px;
+    height:350px;
+    box-sizing:border-box;
+    background:rgba(0,0,0,0.3);
+    padding:40px;
+    color:white;
+    text-align:center;
+    font-size:20px;
+
+  }
+</style>
+
+  <h2 style="margin-top:20px;text-align:center;font-family:'Georgia';color:rgba(120,0,0,1.0);">Check the Result</h2>
+  {% if messages %}
+  <ul style="list-style-type:none;" class="messages">
+    {% for message in messages %}
+    <li>
+<div class="alert alert-success">{{message}}</div>
+</li>
+{% endfor %}
+</ul>
+{% endif %}
+<br>
+<form class="form-area" method="post" style="margin-top:50px;">
+  {% csrf_token %}
+  <p><b>Roll Number</b></p>
+  {{checkresult.rollno}}
+  <p><br></p>
+  <p><b>Date of Birth</b></p>
+  {{checkresult.dob}}
+  <p><br></p>
+  <input style="align:center;" type="submit" class="btn btn-success" value="Check"></input>
+</form>
+
+{% endblock %}
