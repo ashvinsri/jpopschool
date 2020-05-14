@@ -14,13 +14,10 @@ url(r'^notice/(?P<pk>\d+)/remove/$',views.NoticeDeleteView.as_view(), name='noti
 url(r'^resultlist/$',views.resultlist,name="resultlist"),
 url(r'^addquestions/(?P<pk>\d+)/$',views.addquestions,name='addquestions'),
 url(r'^quizpanel/$',views.quizpanel,name='quizpanel'),
-url(r'^userlist/$',views.userlist,name='userlist'),
+url(r'^userlist/(?P<savepk>[\w\-]+)/(?P<sub>[\w\-]+)/$',views.userlist,name='userlist'),
 url(r'^registerfortest/$',views.registerfortest,name='registerfortest'),
 url(r'^starttesttest/$',views.starttest,name='starttest'),
-url(r'^quizsubject/$',views.QuizSubject, name='quizsubject'),
-url(r'^testdone/$',views.testdoneview, name='testdone'),
+url(r'^quizsubject/(?P<savepk>[\w\-]+)/$',views.QuizSubject, name='quizsubject'),
+url(r'^testdone/(?P<savepk>[\w\-]+)/(?P<sub>[\w\-]+)/(?P<url_encode>(.)*)/$',views.testdoneview, name='testdone'),
 url(r'^leaderboard/$',views.leaderboard, name='leaderboard'),
 url(r'^contactus/$',views.contactus,name='contactus'),
-
-#url(r'^uploadmarks/$',views.uploadmarks,name='uploadmarks'),
-]
