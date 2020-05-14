@@ -38,10 +38,10 @@ background-size: cover
 <br>
 <form class="form-area" method="post" style="margin-top:50px;">
   {% csrf_token %}
-  <p><b>Roll Number</b></p>
+  <p style="color:white;"><b>Roll Number</b></p>
   {{checkresult.rollno}}
   <p><br></p>
-  <p><b>Date of Birth</b></p>
+  <p style="color:white;"><b>Date of Birth</b></p>
   {{checkresult.dob}}
   <p><br></p>
   <input style="align:center;" type="submit" class="btn btn-success" value="Check"></input>
