@@ -45,33 +45,33 @@
  {% endfor %}
  {% endif %}
      {% endif %}
-  
+
    <form class="form-area" method="post">
      {% csrf_token %}
-     <table>
+     <table style="color:balck;">
     <tr>
-      <td>Question Id: </td><td>{{qform.queid}}</td>
+      <td>Question Id: </td><td style="color:black;">{{qform.queid}}</td>
     </tr>
     <tr>
-      <td>Question Name: </td><td>{{qform.quename}}</td>
+      <td>Question Name: </td><td style="color:black;">{{qform.quename}}</td>
     </tr>
     <tr>
-      <td>Weightage : </td><td>{{qform.marks}}</td>
+      <td>Weightage : </td><td style="color:black;">{{qform.marks}}</td>
     </tr>
     <tr>
-      <td>Option 1: </td><td>{{aform.option1}}</td>
+      <td>Option 1: </td><td style="color:black;">{{aform.option1}}</td>
     </tr>
     <tr>
-      <td>Option 2: </td><td>{{aform.option2}}</td>
+      <td>Option 2: </td><td style="color:black;">{{aform.option2}}</td>
     </tr>
     <tr>
-      <td>Option 3: </td><td>{{aform.option3}}</td>
+      <td>Option 3: </td><td style="color:black;">{{aform.option3}}</td>
     </tr>
     <tr>
-      <td>Option 4: </td><td>{{aform.option4}}</td>
+      <td>Option 4: </td><td style="color:black;">{{aform.option4}}</td>
     </tr>
     <tr>
-      <td>Correct option: </td><td>{{aform.answer}}</td>
+      <td>Correct option: </td><td style="color:black;">{{aform.answer}}</td>
     </tr>
     <tr>
      <td></td> <td><input type="submit" class="btn btn-success" name="" value="Upload"></td>
