@@ -122,8 +122,8 @@ class QuizUser(models.Model):
     uname=models.CharField(max_length=264)
     clas=models.CharField(max_length=100,default=None)
     password=models.CharField(max_length=100,default="kcs")
-    emailid=models.CharField(max_length=264)
-
+    emailid=models.CharField(max_length=264,default="Not Provided")
+    marks=models.CharField(max_length=264,default="")
 
     def __str__(self):
         return self.uname
@@ -138,3 +138,4 @@ class QuizSubjects(models.Model):
 
     def __str__(self):
         return self.name
+
