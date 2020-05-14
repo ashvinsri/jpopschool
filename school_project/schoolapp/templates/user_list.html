@@ -176,10 +176,10 @@ var interval = setInterval(function(){
           <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
         {% else %}
           <li class="disabled"><span>&raquo;</span></li>
-          <div align="right" ><a class="btn btn-success" href="{% url 'testdone' %}">>Submit</a></div>
+          <div align="right" ><a class="btn btn-success" href="{% url 'testdone' savepk sub url_encode %}">>Submit</a></div>
         {% endif %}
       </ul>
     {% endif %}
-    <div align="right" style="margin-right:10px;" ><a class="btn btn-danger" href="{% url 'testdone' %}">Exit</a></div>
+    <div align="right" style="margin-right:10px;" ><a class="btn btn-danger" href="{% url 'testdone' savepk sub url_encode %}">Exit</a></div>
     </body>
 <html>
