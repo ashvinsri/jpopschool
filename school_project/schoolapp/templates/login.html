@@ -18,19 +18,18 @@
     box-sizing:border-box;
     background:rgba(0,0,0,0.5);
     padding:24px;
-    color:white;
     font-size:20px;
 
   }
   </style>
 
 <form class="form-area" action="{% url 'login' %}" method="post">
-  <h1 align="center">Teacher's Login</h1>
+  <h1 align="center" style="color:white;">Teacher's Login</h1>
   {% csrf_token %}
-  <p style="font-size=20px; font-family:'Calibri';""><b>Username</b></p>
+  <p style="font-size=20px; font-family:'Calibri';color:white;"><b>Username</b></p>
   <input type="text" name="username" placeholder="Enter Username">
 
-  <p style="font-size=20px; font-family:'Calibri';"><b>Password</b></p><p></p>
+  <p style="font-size=20px; font-family:'Calibri;color:white;"><b>Password</b></p><p></p>
   <input type="password" name="password" placeholder="Enter Password">
 
   <input type="submit" class="btn btn-primary" value="Login">
