@@ -18,6 +18,8 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 import random
+import urllib
+from urllib import parse
 # Create your views here.
 
 def base(request):
@@ -279,27 +281,20 @@ def addquestions(request,pk):
         aform=AnswerForm()
 
     return render(request,"addQuestions.html",{'qform':qform,'aform':aform})
-que_list=[]
-marks=dict()
-sub=""
-def QuizSubject(request):
-    global que_list
-    global sub
-    global marks
+
+def QuizSubject(request,savepk):
     subjects=Quiz.objects.all()
     if request.method=="POST":
-        myvar=str(request.POST.get("subjects"))
-        sub=myvar
-        marks=dict()
-        que=Questions.objects.filter(quiz__qname__contains=myvar)
-        que_list=[q for q in que]
-        que_list=random.sample(que_list,k=3)
-        return HttpResponseRedirect(reverse('userlist'))
+        sub=str(request.POST.get("subjects"))
+        return HttpResponseRedirect(reverse('userlist',kwargs={'savepk':savepk,'sub':sub}))
     return render(request,"QuizSubject.html",{'subjects':subjects})
-timer="20"
-def userlist(request):
-    global marks
-    global timer
+
+def userlist(request,savepk,sub):
+    quser=(QuizUser.objects.get(uid=savepk))
+    que=Questions.objects.filter(quiz__qname__contains=sub)[:20]
+    que_list=[q for q in que]
+    url_encode=str(quser.marks)
+    marks=dict(parse.parse_qsl(url_encode))
     ans_list=Answers.objects.all()
     page=request.GET.get('page',1)
     if request.method=='POST':
@@ -307,14 +302,15 @@ def userlist(request):
             myvar=str(request.POST.get("answer"))
             correct=str(request.POST.get("correct"))
             score=str(request.POST.get("score"))
-            timer=str(request.POST.get("puttimer"))
             if(myvar==correct):
                 marks[queid]=int(score)
             else:
                 marks[queid]=0
             print(marks)
 
-
+            url_encode=urllib.parse.urlencode(marks)
+    quser.marks=url_encode
+    quser.save()
 
     paginator=Paginator(que_list,1)
     try:
@@ -323,7 +319,7 @@ def userlist(request):
         users=paginator.page(1)
     except EmptyPage:
         users=paginator.page(paginator.num_pages) #last page if page request is empty
-    return render(request,"user_list.html",{'users':users,'page':page,'ans_list':ans_list,'timer':timer})
+    return render(request,"user_list.html",{'users':users,'page':page,'ans_list':ans_list,'savepk':savepk,'sub':sub,'url_encode':url_encode})
 
 def registerfortest(request):
     registered=False
@@ -335,9 +331,8 @@ def registerfortest(request):
     else:
         quizform=QuizForm()
     return render(request,"registerfortest.html",{'quizform':quizform,'registered':registered})
-savepk=""
+
 def starttest(request):
-    global savepk
     if request.method=='POST':
         quizloginform=QuizLogin(data=request.POST)
         if quizloginform.is_valid():
@@ -349,7 +344,7 @@ def starttest(request):
                 data=QuizUser.objects.get(uid=id)
                 savepk=str(id)
                 if data.password==password:
-                    return HttpResponseRedirect(reverse('quizsubject'))
+                    return HttpResponseRedirect(reverse('quizsubject',kwargs={'savepk':savepk}))
                 else:
                     messages.error(request,"Password Incorrect")
                     return render(request,"quizlogin.html",{"quizloginform":quizloginform})
@@ -361,16 +356,14 @@ def starttest(request):
         quizloginform=QuizLogin()
     return render(request,"quizlogin.html",{"quizloginform":quizloginform})
 
-def testdoneview(request):
-    global sub
-    global marks
-    global savepk
+def testdoneview(request,savepk,sub,url_encode):
+    marks=dict(parse.parse_qsl(url_encode))
     user=QuizUser.objects.get(uid=savepk)
     sum=0
     for i in marks:
-        sum=sum+marks[i];
+        sum=sum+int(marks[i]);
     qcount=len(marks)
-    corrq=[x for x in marks.values() if x!=0]
+    corrq=[x for x in marks.values() if int(x)!=0]
     corrque=len(corrq)
 
     subject=QuizSubjects.objects.filter(uid=savepk)
@@ -389,11 +382,13 @@ def testdoneview(request):
         else:
             subject=QuizSubjects(uid=savepk,name=sub,marks=sum,quecount=qcount,attempts=1)
             subject.save()
-    marks=dict()
+    quser=QuizUser.objects.get(uid=savepk)
+    quser.marks=""
+    quser.save()
     if(sum>40):
-        result="pass"
+        result= "pass"
     else:
-        result="fail"
+        result= "fail"
     return render(request,"testdone.html",{'sub':sub,'total':sum,'corrque':corrque,'user':user,'qcount':qcount,'result':result})
 
 def leaderboard(request):
@@ -418,6 +413,9 @@ def contactus(request):
 
 
 
+
+
+# Create your views here.
 
 
 # Create your views here.
